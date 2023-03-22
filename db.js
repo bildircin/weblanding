@@ -7,7 +7,7 @@ import Sequelize from 'sequelize'
 //       }
 // })
 
-const db = new Sequelize('VideoDataDB', 'root', '12345678', {
+const db = new Sequelize('videodatadb', 'root', 'Celsius*123', {
     host:"localhost",
     dialect:"mysql",
     dialectOptions: {

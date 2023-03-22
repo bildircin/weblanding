@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "root",
-    "password": "12345678",
-    "database": "VideoDataDB",
+    "password": "Celsius*123",
+    "database": "videodatadb",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
