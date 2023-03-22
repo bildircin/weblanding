@@ -126,11 +126,12 @@ app.use('/', authRouter)
 
 app.use(webUIRoutes)
 
-app.use(async (req,res,next)=>{
+/* app.use(async (req,res,next)=>{
     const url = req.originalUrl
     let page = await getPages(url)
 
     if(page){
+        app.locals.title = page.title
         res.render('webUI/content', {layout:'webUI/layout', header:page.pageHeader, content:page.pageContent})
     }else{
         next()
@@ -144,7 +145,7 @@ async function getPages(url){
             url:url
         }
     })
-}
+} */
 
 /* 
 app.get('*', (req,res, next)=>{
@@ -190,6 +191,7 @@ app.use(pageContentRoutes)
 
 
 app.get('*', (req,res)=>{
+    res.locals.title=""
     res.render('404')
 })
 

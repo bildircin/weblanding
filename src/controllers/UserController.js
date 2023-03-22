@@ -26,8 +26,8 @@ const addUser = async (req,res)=>{
 }
 
 const updateUser = async (req,res)=>{
-
     res.locals.title = ""
+    
     if(req.user.type == 0){
         await res.render('layouts/notAuthorized')
     }
