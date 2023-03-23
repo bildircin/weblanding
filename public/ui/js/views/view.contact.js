@@ -67,12 +67,15 @@ Theme Version:	8.0.0
 				}).always(function(data, textStatus, jqXHR) {
 
 					$errorMessage.empty().hide();
+					$messageSuccess.empty()
+					$errorMessage.empty()
 
-					if (data.response == 'success') {
+					if (data.isSuccess) {
 
 						// Uncomment the code below to redirect for a thank you page
 						// self.location = 'thank-you.html';
-
+						$messageSuccess.html(data.message);
+						
 						$messageSuccess.removeClass('d-none');
 						$messageError.addClass('d-none');
 
@@ -98,10 +101,8 @@ Theme Version:	8.0.0
 						
 						return;
 
-					} else if (data.response == 'error' && typeof data.errorMessage !== 'undefined') {
-						$errorMessage.html(data.errorMessage).show();
 					} else {
-						$errorMessage.html(data.responseText).show();
+						$errorMessage.html(data.message).show();
 					}
 
 					$messageError.removeClass('d-none');

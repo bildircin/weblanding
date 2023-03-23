@@ -8,6 +8,8 @@ import PageContent from '../models/PageContent.js'
 import Navigation from "../models/Navigation.js"
 import Category from "../models/Category.js"
 import Blog from "../models/Blog.js"
+import Offer from "../models/Offer.js"
+import SiteURL from "../models/SiteURL.js"
 import TourCategory from "../models/TourCategory.js"
 import db from '../../db.js'
 import Setting from "../models/Setting.js"
@@ -134,6 +136,11 @@ const setLanguageCode = async (req,res,next)=>{
     languageCodes = localLanguageCodes
     next()
 }
+
+
+
+
+
 
 
 
@@ -374,7 +381,70 @@ const page404 = async (req,res,next)=>{
 }
 
 
+const siteURLAjax = async (req,res,next)=>{
+    let {url, email} = req.body
+    email = email.trim()
+    
+    const t = await db.transaction()
+    try {
 
+        const duplicateSiteUrl = await SiteURL.findOne({
+            where:{
+                email,
+                isReview:false
+            }
+        }, {transaction: t})
+
+        if(duplicateSiteUrl){
+            return res.send({isSuccess:false, message:'<strong>Başarısız!</strong>Henüz incelenmekte olan siteniz var.'})
+        }
+        
+        const siteURL = await SiteURL.create({
+            url,
+            email,
+            isReview:false,
+            createdAt:moment(),
+            updatedAt:moment()
+        }, {transaction : t})
+
+        await t.commit()
+        await res.send({isSuccess:true, message:'<strong>Başarılı!</strong> Siteniz kaydedildi. Sizlere en kısa sürede dönüş sağlayacağız.'})
+    } catch (err) {
+        console.log(err)
+        await t.rollback()
+        await res.send({isSuccess:false, message:'<strong>Başarısız!</strong> Bir hata oluştu. Lütfen tekrar deneyiniz'})
+    }
+}
+
+const offerAjax = async (req,res,next)=>{
+    let {name, email, phone, description} = req.body
+    
+    if(phone != null || phone != undefined){
+        phone = phone.trim()
+    }
+    if(phone == "" || phone == undefined){
+        phone = null
+    }
+
+    const t = await db.transaction()
+    try {
+        const offer = await Offer.create({
+            name,
+            email,
+            phone,
+            description,
+            createdAt:moment(),
+            updatedAt:moment()
+        }, {transaction : t})
+
+        await t.commit()
+        await res.send({isSuccess:true, message:'Teklif başarıyla oluşturuldu <br /> Sizlere en kısa zamanda dönüş yapacağız'})
+    } catch (err) {
+        console.log(err)
+        await t.rollback()
+        await res.send({isSuccess:false, message:'Bir hata oluştu. <br /> Sayfayı yenileyip tekrar deneyiniz'})
+    }
+}
 
 
 
@@ -417,5 +487,8 @@ export default {
     blogsPage,
     blogSinglePage,
     page404,
-    cache
+    cache,
+
+    offerAjax,
+    siteURLAjax
 }

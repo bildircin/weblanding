@@ -139,9 +139,9 @@
 								<li class="d-flex align-items-baseline"><i class="far fa-dot-circle text-color-primary mr-3"></i>
 									<div><span class="text-color-light">Adres:</span> İzmir</div></li>
 								<li class="d-flex align-items-baseline"><i class="fab fa-whatsapp text-color-primary mr-3"></i>
-									<div><span class="text-color-light">Tel:</span> 0541 647 47 93</div></li>
+									<div><span class="text-color-light">Tel:</span> 0551 647 47 93</div></li>
 								<li class="d-flex align-items-baseline"><i class="far fa-envelope text-color-primary mr-3"></i>
-									<div><span class="text-color-light">Email:</span> <a href="mailto:mail@example.com">info@abakusyazilim.com</a></div></li>
+									<div><span class="text-color-light">Email:</span> <a href="mailto:info@abakusyazilim.com">info@abakusyazilim.com</a></div></li>
 							</ul>
 						</div>
 						<div class="col-lg-2 mb-4 mb-lg-0">
@@ -241,7 +241,77 @@
 		<!-- Theme Initialization Files -->
 		<script src="ui/js/theme.init.js"></script>
 	
+		<script src="ui/global/jquery.form.js"></script>
 
+		<script>
+			// $('#offer_save').ajaxForm({
+			// 	beforeSubmit: function (e) {
+
+				
+			// 	/* 	if ($('#category').val() == "") {
+			// 			toastr.warning("Kategori seçiniz");
+			// 			$('#category').focus();
+			// 			return false;
+			// 		}
+			// 		if ($('#title').val() == "") {
+			// 			toastr.warning("Başlık giriniz");
+			// 			$('#title').focus();
+			// 			return false;
+			// 		}
+			// 		if ($('#started_at').val() == "") {
+			// 			toastr.warning("Başlama tarihi giriniz");
+			// 			$('#started_at').focus();
+			// 			return false;
+			// 		}
+			// 		if ($('#finished_at').val() == "") {
+			// 			toastr.warning("Bitiş tarihi giriniz");
+			// 			$('#finished_at').focus();
+			// 			return false;
+			// 		} */
+				
+			// 	},
+			// 	beforeSend: function (e) {
+
+			// 	},
+			// 	complete: function (result) {
+			// 		console.log(result.responseJSON)
+
+			// 		if (result.responseJSON.isSuccess) {
+
+			// 		}
+			// 		else {
+					
+			// 		}
+			// 	}
+			// });
+
+
+			$('#url_form').ajaxForm({
+				beforeSubmit: function (e) {
+
+				},
+				beforeSend: function (e) {
+
+				},
+				complete: function (result) {
+					console.log(result.responseJSON)
+
+					if (result.responseJSON.isSuccess) {
+						$("#result_content").addClass("alert-success")
+					}
+					else {
+						$("#result_content").addClass("alert-danger")
+					}
+					$("#result_content span").html(result.responseJSON.message)
+					$("#result_modal").modal("show")
+				}
+			});
+
+			$("#result_modal").on("hidden.bs.modal", function(){
+				document.querySelector("#result_content").classList = "alert"
+			})
+
+		</script>
 		<!-- Google Analytics: Change UA-XXXXX-X to be your site's ID. Go to http://www.google.com/analytics/ for more information.
 		<script>
 			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -253,6 +323,7 @@
 			ga('send', 'pageview');
 		</script>
 		 -->
+
 
 
 	</body>

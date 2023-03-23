@@ -17,5 +17,8 @@ router.get('/blog-detay/:url', webUIController.blogSinglePage)
 
 router.get('/404', webUIController.page404) 
 
+router.post('/teklif-kayit', webUIController.offerAjax) 
+router.post('/url-kayit', webUIController.siteURLAjax) 
+
 
 export default router;
