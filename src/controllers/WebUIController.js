@@ -10,6 +10,7 @@ import Category from "../models/Category.js"
 import Blog from "../models/Blog.js"
 import Offer from "../models/Offer.js"
 import SiteURL from "../models/SiteURL.js"
+import SeoAnalysis from "../models/SeoAnalysis.js"
 import TourCategory from "../models/TourCategory.js"
 import db from '../../db.js'
 import Setting from "../models/Setting.js"
@@ -446,6 +447,28 @@ const offerAjax = async (req,res,next)=>{
     }
 }
 
+const seoAnalysisAjax = async (req,res,next)=>{
+    let {name, email, url, companyName} = req.body
+    
+    const t = await db.transaction()
+    try {
+        const seoAnalysis = await SeoAnalysis.create({
+            name,
+            email,
+            url,
+            companyName,
+            createdAt:moment(),
+            updatedAt:moment()
+        }, {transaction : t})
+
+        await t.commit()
+        await res.send({isSuccess:true, message:'Kayıt başarıyla oluşturuldu <br /> Sizlere en kısa zamanda dönüş yapacağız'})
+    } catch (err) {
+        console.log(err)
+        await t.rollback()
+        await res.send({isSuccess:false, message:'Bir hata oluştu. <br /> Sayfayı yenileyip tekrar deneyiniz'})
+    }
+}
 
 
 
@@ -490,5 +513,6 @@ export default {
     cache,
 
     offerAjax,
-    siteURLAjax
+    siteURLAjax,
+    seoAnalysisAjax
 }

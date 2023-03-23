@@ -307,6 +307,28 @@
 				}
 			});
 
+			$('#free_seo_form').ajaxForm({
+				beforeSubmit: function (e) {
+
+				},
+				beforeSend: function (e) {
+
+				},
+				complete: function (result) {
+					console.log(result.responseJSON)
+
+					if (result.responseJSON.isSuccess) {
+						$("#result_content").addClass("alert-success")
+					}
+					else {
+						$("#result_content").addClass("alert-danger")
+					}
+					$("#result_content span").html(result.responseJSON.message)
+					$("#result_modal").modal("show")
+				}
+			});
+
+
 			$("#result_modal").on("hidden.bs.modal", function(){
 				document.querySelector("#result_content").classList = "alert"
 			})

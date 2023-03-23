@@ -19,6 +19,7 @@ router.get('/404', webUIController.page404)
 
 router.post('/teklif-kayit', webUIController.offerAjax) 
 router.post('/url-kayit', webUIController.siteURLAjax) 
+router.post('/seo-analiz', webUIController.seoAnalysisAjax) 
 
 
 export default router;
