@@ -147,7 +147,9 @@ async function getPages(url){
     })
 } */
 
-/* 
+
+
+
 app.get('*', (req,res, next)=>{
 
     if(!req.isAuthenticated() && req.url != 'login'){
@@ -167,7 +169,7 @@ app.get('*', (req,res, next)=>{
         return res.redirect('/login')
     }
 }) 
- */
+
 
 
 app.get('/admin', async (req,res)=>{
