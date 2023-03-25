@@ -4891,8 +4891,9 @@ window.theme.fn = {
 							},
 							dataType: 'json',
 							success: function(data) {
-								if (data.response == 'success') {
+								if (data.isSuccess) {
 
+									$success.html(data.message);
 									$success.removeClass('d-none');
 									$error.addClass('d-none');
 

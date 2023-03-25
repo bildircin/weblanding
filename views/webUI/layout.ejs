@@ -6,7 +6,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">	
 
-		<title>Demo SEO | Porto - Responsive HTML5 Template</title>	
+		<title><%= title %></title>	
 
 		<meta name="keywords" content="HTML5 Template" />
 		<meta name="description" content="Porto - Responsive HTML5 Template">
@@ -56,6 +56,12 @@
 
 		<!-- Head Libs -->
 		<script src="ui/vendor/modernizr/modernizr.min.js"></script>
+
+		<style>
+			#header{
+				position: relative !important;
+			}
+		</style>
 
 	</head>
 	<body data-target="#header" data-spy="scroll" data-offset="100">
@@ -171,7 +177,7 @@
 								<strong>Success!</strong> You've been added to our email list.
 							</div>
 							<div class="alert alert-danger d-none" id="newsletterError"></div>
-							<form id="newsletterForm" action="php/newsletter-subscribe.php" method="POST" class="mw-100">
+							<form id="newsletterForm" action="/bulten-kayit" method="POST" class="mw-100">
 								<div class="input-group">
 									<input class="form-control form-control-sm text-color-light custom-bg-color-1 rounded-0 border-0 px-4 text-3" placeholder="Email Adresi..." name="newsletterEmail" id="newsletterEmail" type="text">
 									<span class="input-group-append">

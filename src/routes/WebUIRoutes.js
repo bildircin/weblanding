@@ -20,6 +20,10 @@ router.get('/404', webUIController.page404)
 router.post('/teklif-kayit', webUIController.offerAjax) 
 router.post('/url-kayit', webUIController.siteURLAjax) 
 router.post('/seo-analiz', webUIController.seoAnalysisAjax) 
+router.post('/bulten-kayit', webUIController.bulletinSaveAjax) 
 
+router.get("/seo-yapilanmasi-web-sitesi-icin-en-iyi-pratikler", webUIController.blog1)
+router.get("/web-sitesi-nedir", webUIController.blog2)
+router.get("/blog-3", webUIController.blog3)
 
 export default router;

@@ -9,6 +9,7 @@ import Navigation from "../models/Navigation.js"
 import Category from "../models/Category.js"
 import Blog from "../models/Blog.js"
 import Offer from "../models/Offer.js"
+import Bulletin from "../models/Bulletin.js"
 import SiteURL from "../models/SiteURL.js"
 import SeoAnalysis from "../models/SeoAnalysis.js"
 import TourCategory from "../models/TourCategory.js"
@@ -147,8 +148,7 @@ const setLanguageCode = async (req,res,next)=>{
 
 
 const homePage = async (req,res)=>{
-    res.locals.title="Ana Sayfa"
-
+    res.locals.title="Abaküs Yazılım | İzmir Web Site Yazılım"
     await res.render('webUI/index', {layout:'webUI/layout'})
 }
 
@@ -377,9 +377,25 @@ const blogSinglePage = async (req,res)=>{
 
 
 const page404 = async (req,res,next)=>{
-
+    res.locals.title = "Sayfa Bulunamadı"
     await res.render('webUI/404', {layout:'webUI/layout', currentLang, contents, navigations, languageCodes})
 }
+
+
+
+const blog1 = async (req,res,next) => {
+    res.locals.title = "SEO Yapılanması: Web Sitesi İçin En İyi Pratikler | Abaküs Yazılım"
+    await res.render("webUI/blogs/blog-1", {layout:"webUI/layout"})
+}
+const blog2 = async (req,res,next) => {
+    res.locals.title = "Web Yazılımı Nedir? | Abaküs Yazılım"
+    await res.render("webUI/blogs/blog-2", {layout:"webUI/layout"})
+}
+const blog3 = async (req,res,next) => {
+    res.locals.title = ""
+    await res.render("webUI/blogs/blog-3", {layout:"webUI/layout"})
+}
+
 
 
 const siteURLAjax = async (req,res,next)=>{
@@ -470,6 +486,36 @@ const seoAnalysisAjax = async (req,res,next)=>{
     }
 }
 
+const bulletinSaveAjax = async (req,res,next)=>{
+    const email = req.body.email
+
+    const t = await db.transaction()
+    try {
+
+        const dublicateBulletin = await Bulletin.findOne({
+            where:{
+                email
+            }
+        })
+
+        if (dublicateBulletin) {
+            return res.send({isSuccess:false, message:'Bir hata oluştu. Lütfen tekrar deneyiniz'})
+        }
+        
+        const bulletin = await Bulletin.create({
+            email,
+            createdAt:moment(),
+            updatedAt:moment()
+        })
+
+        await t.commit()
+        await res.send({isSuccess:true, message:'Kayıt başarıyla oluşturuldu'})
+    } catch (err) {
+        console.log(err)
+        await t.rollback()
+        await res.send({isSuccess:false, message:'Bir hata oluştu. Lütfen tekrar deneyiniz'})
+    }
+}
 
 
 
@@ -514,5 +560,9 @@ export default {
 
     offerAjax,
     siteURLAjax,
-    seoAnalysisAjax
+    seoAnalysisAjax,
+    bulletinSaveAjax,
+    blog1,
+    blog2,
+    blog3
 }
